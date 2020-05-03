@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calculadora</string>
+    <string name="adiçao">+</string>
+    <string name="subtraçao">-</string>
+    <string name="numero_2">Número 2</string>
+    <string name="numero_1">Número 1</string>
+</resources>
