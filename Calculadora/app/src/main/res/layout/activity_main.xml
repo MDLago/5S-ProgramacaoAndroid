@@ -10,15 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/tvResultado"
+        <ListView
+            android:id="@+id/lvResultado"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_span="2"
-            android:textAlignment="center"
-            android:textSize="20dp" />
+            android:layout_height="50dp"
+            android:layout_span="2"/>
+
     </TableRow>
 
     <TableRow
