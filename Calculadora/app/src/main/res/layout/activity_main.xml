@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:stretchColumns="*"
     tools:context=".MainActivity">
 
     <TableRow
@@ -45,31 +46,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnDivisao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/divisão" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_span="2">
 
-        <Button
-            android:id="@+id/btnMultiplicacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/multiplicação" />
+            <Button
+                android:id="@+id/bntSubtracao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="subtracaoResultado"
+                android:text="@string/subtraçao" />
 
-        <Button
-            android:id="@+id/bntAdicao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="adicaoResultado"
-            android:text="@string/adiçao" />
+            <Button
+                android:id="@+id/bntAdicao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="adicaoResultado"
+                android:text="@string/adiçao" />
 
-        <Button
-            android:id="@+id/bntSubtracao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="subtracaoResultado"
-            android:text="@string/subtraçao" />
+            <Button
+                android:id="@+id/btnMultiplicacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/multiplicação" />
+
+            <Button
+                android:id="@+id/btnDivisao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/divisão" />
+        </LinearLayout>
+
     </TableRow>
 
 </TableLayout>
