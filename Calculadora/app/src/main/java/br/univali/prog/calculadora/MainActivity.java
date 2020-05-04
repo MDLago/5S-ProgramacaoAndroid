@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         showResult(res);
     }
 
-    public void subtracaoResultado (View v) {
+    public void multiplicacaoResultado (View v) {
         resultado.setText("");
 
         String num1String = getNumString(1);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         showResult(res);
     }
 
-    public void subtracaoResultado (View v) {
+    public void divisaoResultado (View v) {
         resultado.setText("");
 
         String num1String = getNumString(1);
