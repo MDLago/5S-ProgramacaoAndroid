@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
         }
-        exibirAlertaLongo("Teste");
         updateResult();
     }
 
@@ -160,5 +159,10 @@ public class MainActivity extends AppCompatActivity {
 
         float res = num1 / num2;
         addResult(num1,num2,Operacao.DIVISAO,res);
+    }
+
+    public void limparhistorico(View v){
+        resultados.clear();
+        updateResult();
     }
 }
