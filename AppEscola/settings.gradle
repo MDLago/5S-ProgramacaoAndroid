@@ -1,0 +1,2 @@
+rootProject.name='AppEscola'
+include ':app'

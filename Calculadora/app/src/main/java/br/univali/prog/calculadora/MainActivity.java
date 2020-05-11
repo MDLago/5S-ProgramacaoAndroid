@@ -2,6 +2,8 @@ package br.univali.prog.calculadora;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText numero1;
     private EditText numero2;
     private ArrayList<String> resultados;
+    private SQLiteDatabase db;
 
     private ListView lvResultado;
     private ArrayAdapter adapter;
@@ -164,5 +167,45 @@ public class MainActivity extends AppCompatActivity {
     public void limparhistorico(View v){
         resultados.clear();
         updateResult();
+    }
+
+    ////////////////////////////////////////////////
+
+    private void criarBancoDados(){
+        db = openOrCreateDatabase("calculadora.db", Context.MODE_PRIVATE,null);
+
+        StringBuilder sql_Create_Resultado = new StringBuilder();
+        sql_Create_Resultado.append("CREATE TABLE IF NOT EXIST resultado" +
+                "(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "operacao VARCHAR(1), " +
+                "num1 FLOAT(8,2), " +
+                "num2 FLOAT(8,2), " +
+                "resultado FLOAT(8,2) " +
+                ")");
+
+        try{
+            db.execSQL(sql_Create_Resultado.toString());
+        } catch (Exception ex){
+            Toast.makeText(getApplicationContext(),"Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void gravaResultado(String op, String n1, String n2, Float r) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERTO INTO resultado (operacao, num1, num2, resultado)" +
+                "VALUES (");
+        sql.append("'" + op + "',");
+        sql.append(n1 + ",");
+        sql.append(n2 + ",");
+        sql.append(r);
+        sql.append(")");
+
+        try{
+            db.execSQL(sql.toString());
+        } catch (Exception ex){
+            Toast.makeText(getApplicationContext(),"Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
