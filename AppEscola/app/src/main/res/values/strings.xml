@@ -1,9 +1,16 @@
 <resources>
-    <string name="app_name">AppEscola</string>
-    <string name="inserir_aluno">Inserir Aluno</string>
-    <string name="informe_o_nome_do_aluno">Informe o nome do Aluno</string>
-    <string name="idade">Idade</string>
-    <string name="curso">Curso</string>
-    <string name="voltar">Voltar</string>
-    <string name="salvar">Salvar</string>
+    <string name="app_name">Escola</string>
+    <string name="adicionar_aluno">Adicionar Alunos</string>
+    <string name="editar_aluno">Editar Alunos</string>
+    <string name="listar_aluno">Listar Alunos</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="listar">Listar</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="nome">Nome*</string>
+    <string name="idade">Idade*</string>
+    <string name="curso">Curso*</string>
+    <string name="campos_obrigatorios">*Campos Obrigatórios</string>
+    <string name="aluno">Gerenciamento de Alunos</string>
 </resources>
