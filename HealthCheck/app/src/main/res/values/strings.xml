@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Health Check</string>
+    <string name="adiciona_m_dico">Adicionar Médico</string>
+    <string name="listar_medico">Listar Medico</string>
+    <string name="adiciona_paciente">Adicionar Paciente</string>
+    <string name="listar_paciente">Listar Paciente</string>
+    <string name="adiciona_consulta">Adicionar Consulta</string>
+    <string name="listar_consulta">Listar Consulta</string>
+    <string name="nome">Nome</string>
+    <string name="crm">CRM</string>
+    <string name="rua">Rua</string>
+    <string name="numero">Número</string>
+    <string name="cidade">Cidade</string>
+    <string name="celular">Celular</string>
+    <string name="fixo">Fixo</string>
+    <string name="uf">UF</string>
+</resources>

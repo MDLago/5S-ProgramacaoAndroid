@@ -1,0 +1,108 @@
+package br.univali.prog.healthcheck;
+
+import android.app.Application;
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class DB extends SQLiteOpenHelper{
+
+    private static final String nomeDB = "consulta.db";
+    private static final int versaoDB = 1;
+    private Context context;
+    private SQLiteDatabase db;
+
+    //region Implementação Obrigatória
+    public DB(@Nullable Context context) {
+        super(context, nomeDB, null, versaoDB);
+        this.context = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
+    //endregion
+
+    //region Metodos
+    public void criarDB() throws SQLException {
+        db = context.openOrCreateDatabase(nomeDB,Context.MODE_PRIVATE,null);
+
+        String sql = SQL_TabelaMedico();
+        db.execSQL(sql);
+
+        sql = SQL_TabelaPaciente();
+        db.execSQL(sql);
+
+        sql = SQL_TabelaConsulta();
+        db.execSQL(sql);
+
+        db.close();
+    }
+    //endregion
+
+    //region SQL
+    private String SQL_TabelaMedico() {
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("CREATE TABLE IF NOT EXISTS medico (");
+        sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        sql.append("nome VARCHAR(50), ");
+        sql.append("crm VARCHAR(20), ");
+        sql.append("logradouro VARCHAR(100), ");
+        sql.append("numero MEDIUMINT(8), ");
+        sql.append("cidade VARCHAR(30), ");
+        sql.append("uf VARCHAR(2), ");
+        sql.append("celular VARCHAR(20), ");
+        sql.append("fixo VARCHAR(20)");
+        sql.append(");");
+
+        return sql.toString();
+    }
+
+    private String SQL_TabelaPaciente() {
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("CREATE TABLE IF NOT EXISTS paciente (");
+        sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        sql.append("nome VARCHAR(50), ");
+        sql.append("grp_sanguineo TINYINT(1), ");
+        sql.append("logradouro VARCHAR(100), ");
+        sql.append("numero MEDIUMINT(8), ");
+        sql.append("cidade VARCHAR(30), ");
+        sql.append("uf VARCHAR(2), ");
+        sql.append("celular VARCHAR(20), ");
+        sql.append("fixo VARCHAR(20)");
+        sql.append(");");
+
+        return sql.toString();
+    }
+
+    private String SQL_TabelaConsulta() {
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("CREATE TABLE IF NOT EXISTS paciente (");
+        sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        sql.append("paciente_id INTEGER NOT NULL, ");
+        sql.append("medico_id INTEGER NOT NULL, ");
+        sql.append("data_hora_inicio DATETIME, ");
+        sql.append("data_hora_fim DATETIME, ");
+        sql.append("observacao VARCHAR(200), ");
+        sql.append("FOREIGN KEY(paciente_id) REFERENCES paciente(id), ");
+        sql.append("FOREIGN KEY(medico_id) REFERENCES medico(id)");
+        sql.append(");");
+
+        return sql.toString();
+    }
+    //endregion
+
+}
