@@ -28,11 +28,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void exibirMensagem(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
     }
 
     public void abrirAdicionarMedico(View v){
         Intent i = new Intent(getApplicationContext(),AdicionaMedico.class);
+        startActivity(i);
+    }
+
+    public void abrirAdicionarPaciente(View v){
+        Intent i = new Intent(getApplicationContext(),AdicionaPaciente.class);
+        startActivity(i);
+    }
+
+    public void abrirAdicionarConsulta(View v){
+        Intent i = new Intent(getApplicationContext(),AdicionaConsulta.class);
+        startActivity(i);
+    }
+
+    public void abrirListarMedico(View v){
+        Intent i = new Intent(getApplicationContext(),ListarConsulta.class);
+        startActivity(i);
+    }
+
+    public void abrirListarPaciente(View v){
+        Intent i = new Intent(getApplicationContext(),ListarPaciente.class);
+        startActivity(i);
+    }
+
+    public void abrirListarConsulta(View v){
+        Intent i = new Intent(getApplicationContext(),ListarConsulta.class);
         startActivity(i);
     }
 }

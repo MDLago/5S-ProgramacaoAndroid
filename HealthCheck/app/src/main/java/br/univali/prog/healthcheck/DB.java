@@ -1,12 +1,16 @@
 package br.univali.prog.healthcheck;
 
-import android.app.Application;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB extends SQLiteOpenHelper{
 
@@ -34,8 +38,11 @@ public class DB extends SQLiteOpenHelper{
     //endregion
 
     //region Metodos
-    public void criarDB() throws SQLException {
+    private void abrirDB() throws  SQLException{
         db = context.openOrCreateDatabase(nomeDB,Context.MODE_PRIVATE,null);
+    }
+    public void criarDB() throws SQLException {
+        abrirDB();
 
         String sql = SQL_TabelaMedico();
         db.execSQL(sql);
@@ -50,7 +57,7 @@ public class DB extends SQLiteOpenHelper{
     }
     //endregion
 
-    //region SQL
+    //region SQLs
     private String SQL_TabelaMedico() {
         StringBuilder sql = new StringBuilder();
 
@@ -102,6 +109,55 @@ public class DB extends SQLiteOpenHelper{
         sql.append(");");
 
         return sql.toString();
+    }
+
+    private String SQL_InsertMedico(){
+
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("INSERT INTO medico (nome,crm,logradouro,numero,cidade,uf,celular,fixo) ");
+        sql.append("VALUES (?,?,?,?,?,?,?,?)");
+
+        return sql.toString();
+    }
+
+    private String SQL_SelectMedico(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM medico");
+
+        return sql.toString();
+    }
+    //endregion
+
+    //region Inserts
+    public void inserirMedico(@Nullable String nome, @Nullable String crm, @Nullable String rua,@Nullable int numero,
+                              @Nullable String cidade,@Nullable String uf,@Nullable String celular,
+                              @Nullable String fixo) throws SQLException{
+
+        abrirDB();
+
+        SQLiteStatement sqtmt = db.compileStatement(SQL_InsertMedico());
+
+        sqtmt.bindString(1,nome);
+        sqtmt.bindString(2,crm);
+        sqtmt.bindString(3,rua);
+        sqtmt.bindLong(4,numero);
+        sqtmt.bindString(5,cidade);
+        sqtmt.bindString(6,uf);
+        sqtmt.bindString(7,celular);
+        sqtmt.bindString(8,fixo);
+
+        sqtmt.executeInsert();
+    }
+
+    public List<String> buscarMedico() throws SQLException{
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(SQL_SelectMedico(),null);
+
+
+        return arrayList;
     }
     //endregion
 

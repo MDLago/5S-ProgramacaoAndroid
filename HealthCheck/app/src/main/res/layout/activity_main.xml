@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="@string/app_name"
+        android:text="@string/menu_principal"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="30sp" />
@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="abrirListarMedico"
             android:text="@string/listar_medico"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
@@ -55,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="abrirAdicionarPaciente"
             android:text="@string/adiciona_paciente"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -64,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="abrirListarPaciente"
             android:text="@string/listar_paciente"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
@@ -80,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="abrirAdicionarConsulta"
             android:text="@string/adiciona_consulta"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -89,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="abrirListarConsulta"
             android:text="@string/listar_consulta"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>

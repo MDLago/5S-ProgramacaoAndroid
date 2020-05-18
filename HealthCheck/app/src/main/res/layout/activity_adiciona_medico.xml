@@ -125,12 +125,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/et_MedicoUF"
+        <Spinner
+            android:id="@+id/sp_MedicoUF"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
@@ -204,6 +202,36 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="phone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_salvar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnAdicionarMedico"
+            android:text="@string/salvar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <Button
+            android:id="@+id/btn_Voltar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnVoltar"
+            android:text="@string/voltar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>
 </LinearLayout>
