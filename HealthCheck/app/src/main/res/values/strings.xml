@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Health Check</string>
-    <string name="adiciona_m_dico">Adicionar Médico</string>
+    <string name="adiciona_medico">Adicionar Médico</string>
     <string name="listar_medico">Listar Medico</string>
     <string name="adiciona_paciente">Adicionar Paciente</string>
     <string name="listar_paciente">Listar Paciente</string>
@@ -17,6 +17,7 @@
     <string name="salvar">Salvar</string>
     <string name="voltar">Voltar</string>
     <string name="menu_principal">Menu Principal</string>
+    <string name="listar_medicos">Listar Médicos</string>
     <string-array name="UF">
         <item>AC</item>
         <item>AL</item>

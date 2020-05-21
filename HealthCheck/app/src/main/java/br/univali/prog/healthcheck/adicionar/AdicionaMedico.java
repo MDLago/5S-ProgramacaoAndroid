@@ -1,4 +1,4 @@
-package br.univali.prog.healthcheck;
+package br.univali.prog.healthcheck.adicionar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import br.univali.prog.healthcheck.db.DB;
+import br.univali.prog.healthcheck.MainActivity;
+import br.univali.prog.healthcheck.R;
 
 public class AdicionaMedico extends AppCompatActivity {
 
@@ -71,7 +75,7 @@ public class AdicionaMedico extends AppCompatActivity {
         exibirMensagem("Adicionado com sucesso",0);
     }
     public void btnVoltar(View v){
-        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
 

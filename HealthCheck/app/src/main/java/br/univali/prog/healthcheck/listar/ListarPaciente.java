@@ -1,14 +1,16 @@
-package br.univali.prog.healthcheck;
+package br.univali.prog.healthcheck.listar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class EditaMedico extends AppCompatActivity {
+import br.univali.prog.healthcheck.R;
+
+public class ListarPaciente extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edita_medico);
+        setContentView(R.layout.activity_listar_paciente);
     }
 }

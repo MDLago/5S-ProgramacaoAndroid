@@ -1,8 +1,10 @@
-package br.univali.prog.healthcheck;
+package br.univali.prog.healthcheck.adicionar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import br.univali.prog.healthcheck.R;
 
 public class AdicionaPaciente extends AppCompatActivity {
 

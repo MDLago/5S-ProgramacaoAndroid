@@ -1,4 +1,4 @@
-package br.univali.prog.healthcheck;
+package br.univali.prog.healthcheck.db;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.univali.prog.healthcheck.objetos.Medico;
 
 public class DB extends SQLiteOpenHelper{
 
@@ -41,6 +43,9 @@ public class DB extends SQLiteOpenHelper{
     private void abrirDB() throws  SQLException{
         db = context.openOrCreateDatabase(nomeDB,Context.MODE_PRIVATE,null);
     }
+    private void fecharDB() throws  SQLException{
+        db.close();
+    }
     public void criarDB() throws SQLException {
         abrirDB();
 
@@ -53,7 +58,7 @@ public class DB extends SQLiteOpenHelper{
         sql = SQL_TabelaConsulta();
         db.execSQL(sql);
 
-        db.close();
+        fecharDB();
     }
     //endregion
 
@@ -149,16 +154,41 @@ public class DB extends SQLiteOpenHelper{
         sqtmt.bindString(8,fixo);
 
         sqtmt.executeInsert();
+        fecharDB();
     }
 
-    public List<String> buscarMedico() throws SQLException{
-        ArrayList<String> arrayList = new ArrayList<>();
+    //endregion
+
+    //region Selects
+    public List<Medico> buscarMedico() throws SQLException{
+        ArrayList<Medico> arrayList = new ArrayList<>();
+        abrirDB();
 
         Cursor cursor = db.rawQuery(SQL_SelectMedico(),null);
+        if(cursor == null){
+            return null;
+        }
 
+        cursor.moveToFirst();
+        do{
+            int id = cursor.getInt(0);
+            String nome = cursor.getString(1);
+            String crm = cursor.getString(2);
+            String rua = cursor.getString(3);
+            int numero = cursor.getInt(4);
+            String cidade = cursor.getString(5);
+            String uf = cursor.getString(6);
+            String celular = cursor.getString(7);
+            String fixo = cursor.getString(8);
 
+            Medico medico = new Medico(id,nome,crm,rua,numero,cidade,uf,celular,fixo);
+            arrayList.add(medico);
+
+        }while(cursor.moveToNext());
+        fecharDB();
         return arrayList;
     }
+
     //endregion
 
 }

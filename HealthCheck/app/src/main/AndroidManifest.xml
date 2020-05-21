@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListarConsulta"></activity>
-        <activity android:name=".ListarPaciente" />
-        <activity android:name=".ListarMedico" />
-        <activity android:name=".EditaConsulta" />
-        <activity android:name=".EditaPaciente" />
-        <activity android:name=".EditaMedico" />
-        <activity android:name=".AdicionaConsulta" />
-        <activity android:name=".AdicionaPaciente" />
-        <activity android:name=".AdicionaMedico" />
+        <activity android:name=".listar.ListarConsulta"></activity>
+        <activity android:name=".listar.ListarPaciente" />
+        <activity android:name=".listar.ListarMedico" />
+        <activity android:name=".editar.EditaConsulta" />
+        <activity android:name=".editar.EditaPaciente" />
+        <activity android:name=".editar.EditaMedico" />
+        <activity android:name=".adicionar.AdicionaConsulta" />
+        <activity android:name=".adicionar.AdicionaPaciente" />
+        <activity android:name=".adicionar.AdicionaMedico" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

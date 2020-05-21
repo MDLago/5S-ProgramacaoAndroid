@@ -1,8 +1,10 @@
-package br.univali.prog.healthcheck;
+package br.univali.prog.healthcheck.editar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import br.univali.prog.healthcheck.R;
 
 public class EditaConsulta extends AppCompatActivity {
 

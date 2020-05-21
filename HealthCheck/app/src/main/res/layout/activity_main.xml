@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="abrirAdicionarMedico"
-            android:text="@string/adiciona_m_dico"
+            android:text="@string/adiciona_medico"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Button

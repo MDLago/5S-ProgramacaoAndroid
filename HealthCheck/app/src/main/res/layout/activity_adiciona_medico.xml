@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#55E3E6A0"
     android:orientation="vertical"
-    tools:context=".AdicionaMedico">
+    tools:context=".adicionar.AdicionaMedico">
 
     <TextView
         android:id="@+id/tv_NomeTela"
@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/adiciona_m_dico"
+        android:text="@string/adiciona_medico"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="24sp" />
