@@ -27,9 +27,9 @@ public class ListaMedicoAdapter extends RecyclerView.Adapter<ListaMedicoAdapter.
     //region Obrigatório
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        View v = layoutInflater.inflate(R.layout.listar_medico_layout, parent,false);
+        View v = layoutInflater.inflate(R.layout.recycle_layout_listar_medico, viewGroup,false);
         MyViewHolder mvh = new MyViewHolder(v);
 
         return mvh;

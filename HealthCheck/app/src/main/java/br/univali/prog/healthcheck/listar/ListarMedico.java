@@ -33,6 +33,7 @@ public class ListarMedico extends AppCompatActivity {
         rv_ListaMedico.setLayoutManager(getLinearLayout());
         rv_ListaMedico.setAdapter(rvAdapter());
 
+
     }
 
     //tempo, 0 = curto, 1 = longo

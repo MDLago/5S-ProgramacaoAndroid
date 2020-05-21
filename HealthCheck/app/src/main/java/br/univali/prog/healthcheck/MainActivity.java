@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             db.criarDB();
         }catch(SQLException e){
-            exibirMensagem(e.toString());
+            exibirMensagem(e.toString(),1);
         }
     }
 
-    private void exibirMensagem(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+    private void exibirMensagem(String msg,int tempo){
+        Toast.makeText(getApplicationContext(),msg,tempo).show();
     }
 
     public void abrirAdicionarMedico(View v){
@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirListarMedico(View v){
+
+        if(db.buscarMedico() == null){
+            exibirMensagem("Não há médicos cadastrados", 0);
+            return;
+        }
         Intent i = new Intent(getApplicationContext(), ListarMedico.class);
         startActivity(i);
     }

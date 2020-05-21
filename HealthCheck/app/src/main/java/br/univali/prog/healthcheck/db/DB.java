@@ -60,9 +60,14 @@ public class DB extends SQLiteOpenHelper{
 
         fecharDB();
     }
+
+    public void deletarDB() throws SQLException{
+        context.deleteDatabase(nomeDB);
+    }
     //endregion
 
     //region SQLs
+
     private String SQL_TabelaMedico() {
         StringBuilder sql = new StringBuilder();
 
@@ -165,7 +170,7 @@ public class DB extends SQLiteOpenHelper{
         abrirDB();
 
         Cursor cursor = db.rawQuery(SQL_SelectMedico(),null);
-        if(cursor == null){
+        if(cursor == null || cursor.getCount() == 0){
             return null;
         }
 
