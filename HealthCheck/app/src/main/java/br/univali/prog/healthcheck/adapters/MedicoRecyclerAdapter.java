@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.univali.prog.healthcheck.R;
-import br.univali.prog.healthcheck.objetos.Medico;
+import br.univali.prog.healthcheck.dominio.Medico;
+import br.univali.prog.healthcheck.interfaces.RecyclerOnClickListerner;
 
-public class ListaMedicoAdapter extends RecyclerView.Adapter<ListaMedicoAdapter.MyViewHolder> {
+public class MedicoRecyclerAdapter extends RecyclerView.Adapter<MedicoRecyclerAdapter.MyViewHolder> {
 
     private List<Medico> medicoList;
     private LayoutInflater layoutInflater;
+    private RecyclerOnClickListerner recyclerOnClickListerner;
 
-    public ListaMedicoAdapter(Context context, List<Medico> medicoList){
+    public MedicoRecyclerAdapter(Context context, List<Medico> medicoList){
         this.medicoList = medicoList;
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -29,7 +31,7 @@ public class ListaMedicoAdapter extends RecyclerView.Adapter<ListaMedicoAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        View v = layoutInflater.inflate(R.layout.recycle_layout_listar_medico, viewGroup,false);
+        View v = layoutInflater.inflate(R.layout.recycle_layout, viewGroup,false);
         MyViewHolder mvh = new MyViewHolder(v);
 
         return mvh;
@@ -43,13 +45,16 @@ public class ListaMedicoAdapter extends RecyclerView.Adapter<ListaMedicoAdapter.
 
     @Override
     public int getItemCount() {
+        if(medicoList == null){
+            return 0;
+        }
         return medicoList.size();
     }
 
     //endregion
 
     //region ViewHolder
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView listaMedicoNome;
         public TextView listaMedicoCRM;
@@ -59,8 +64,21 @@ public class ListaMedicoAdapter extends RecyclerView.Adapter<ListaMedicoAdapter.
 
             listaMedicoNome = itemView.findViewById(R.id.tvListarMedicoNome);
             listaMedicoCRM = itemView.findViewById(R.id.tvListarMedicoCRM);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(recyclerOnClickListerner != null){
+                recyclerOnClickListerner.onClickListener(v,medicoList.get(getAdapterPosition()).id);
+            }
         }
     }
 
     //endregion
+
+    public void setRecyclerOnClickListerner (RecyclerOnClickListerner r){
+        recyclerOnClickListerner = r;
+    }
 }

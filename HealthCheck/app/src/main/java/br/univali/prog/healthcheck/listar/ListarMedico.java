@@ -4,22 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
 import br.univali.prog.healthcheck.R;
-import br.univali.prog.healthcheck.adapters.ListaMedicoAdapter;
+import br.univali.prog.healthcheck.adapters.MedicoRecyclerAdapter;
 import br.univali.prog.healthcheck.db.DB;
-import br.univali.prog.healthcheck.objetos.Medico;
+import br.univali.prog.healthcheck.dominio.Medico;
+import br.univali.prog.healthcheck.editar.EditaMedico;
+import br.univali.prog.healthcheck.interfaces.RecyclerOnClickListerner;
 
-public class ListarMedico extends AppCompatActivity {
+public class ListarMedico extends AppCompatActivity implements RecyclerOnClickListerner {
 
 
-    RecyclerView rv_ListaMedico;
-    DB db;
+    private RecyclerView rv_ListaMedico;
+    private DB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,13 @@ public class ListarMedico extends AppCompatActivity {
         rv_ListaMedico.setHasFixedSize(true);
         rv_ListaMedico.setLayoutManager(getLinearLayout());
         rv_ListaMedico.setAdapter(rvAdapter());
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        rv_ListaMedico.setAdapter(rvAdapter());
     }
 
     //tempo, 0 = curto, 1 = longo
@@ -41,6 +50,11 @@ public class ListarMedico extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),msg,tempo).show();
     }
 
+    private void abrirEditarMedico(int id){
+        Intent i = new Intent(getApplicationContext(), EditaMedico.class);
+        i.putExtra("id",id);
+        startActivity(i);
+    }
 
     private LinearLayoutManager getLinearLayout(){
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -49,17 +63,27 @@ public class ListarMedico extends AppCompatActivity {
         return llm;
     }
 
-    private ListaMedicoAdapter rvAdapter(){
+    private MedicoRecyclerAdapter rvAdapter(){
         List<Medico> list;
-        ListaMedicoAdapter adapter;
+        MedicoRecyclerAdapter adapter;
 
         try{
            list = db.buscarMedico();
-           adapter = new ListaMedicoAdapter(getApplicationContext(),list);
+           adapter = new MedicoRecyclerAdapter(getApplicationContext(),list);
+           adapter.setRecyclerOnClickListerner(this);
            return adapter;
         }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
         }
             return null;
     }
+
+    // Position é o ID do medico no banco de dados
+    @Override
+    public void onClickListener(View v, int position) {
+        abrirEditarMedico(position);
+
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package br.univali.prog.healthcheck.objetos;
+package br.univali.prog.healthcheck.dominio;
 
 public class Medico {
     public final int id;

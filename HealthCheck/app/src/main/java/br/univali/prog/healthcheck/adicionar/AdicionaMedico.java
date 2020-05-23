@@ -17,16 +17,16 @@ import br.univali.prog.healthcheck.R;
 
 public class AdicionaMedico extends AppCompatActivity {
 
-    DB db;
+    private DB db;
 
-    EditText etNome;
-    EditText etCRM;
-    EditText etRua;
-    EditText etNumero;
-    EditText etCidade;
-    Spinner spUF;
-    EditText etCelular;
-    EditText etFixo;
+    private EditText etNome;
+    private  EditText etCRM;
+    private EditText etRua;
+    private  EditText etNumero;
+    private  EditText etCidade;
+    private   Spinner spUF;
+    private  EditText etCelular;
+    private   EditText etFixo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,18 @@ public class AdicionaMedico extends AppCompatActivity {
         db = new DB(getApplicationContext());
         spinnerUF();
     }
+
+    //region Outros
     //tempo, 0 = curto, 1 = longo
     private void exibirMensagem(String msg,int tempo){
         Toast.makeText(getApplicationContext(),msg,tempo).show();
     }
+
+    private void spinnerUF(){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.UF));
+        spUF.setAdapter(arrayAdapter);
+    }
+    //endregion
 
     //region Botões
     public void btnAdicionarMedico(View v){
@@ -70,9 +78,11 @@ public class AdicionaMedico extends AppCompatActivity {
             db.inserirMedico(nome,crm,rua,numero,cidade,uf,celular,fixo);
         }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
+            return;
         }
 
         exibirMensagem("Adicionado com sucesso",0);
+        this.finish();
     }
     public void btnVoltar(View v){
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
@@ -81,10 +91,7 @@ public class AdicionaMedico extends AppCompatActivity {
 
     //endregion
 
-    private void spinnerUF(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.UF));
-        spUF.setAdapter(arrayAdapter);
-    }
+    //region VALIDAÇÕES
 
     private boolean campoVazio(){
         return etNome.getText().toString().trim().isEmpty() ||
@@ -96,4 +103,6 @@ public class AdicionaMedico extends AppCompatActivity {
                 etCelular.getText().toString().trim().isEmpty() ||
                 etFixo.getText().toString().trim().isEmpty();
     }
+
+    //endregion
 }

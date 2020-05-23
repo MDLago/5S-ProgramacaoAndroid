@@ -18,6 +18,9 @@
     <string name="voltar">Voltar</string>
     <string name="menu_principal">Menu Principal</string>
     <string name="listar_medicos">Listar Médicos</string>
+    <string name="editar_medico">Editar Médico</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="excluir">Excluir</string>
     <string-array name="UF">
         <item>AC</item>
         <item>AL</item>
