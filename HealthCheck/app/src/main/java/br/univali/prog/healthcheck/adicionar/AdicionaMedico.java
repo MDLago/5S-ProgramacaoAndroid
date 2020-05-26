@@ -2,7 +2,6 @@ package br.univali.prog.healthcheck.adicionar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import br.univali.prog.healthcheck.db.DB;
-import br.univali.prog.healthcheck.MainActivity;
 import br.univali.prog.healthcheck.R;
 
 public class AdicionaMedico extends AppCompatActivity {
@@ -36,7 +34,7 @@ public class AdicionaMedico extends AppCompatActivity {
         etNome = findViewById(R.id.et_MedicoNome);
         etCRM = findViewById(R.id.et_MedicoCRM);
         etRua = findViewById(R.id.et_MedicoRua);
-        etNumero = findViewById(R.id.ev_MedicoNumero);
+        etNumero = findViewById(R.id.et_MedicoNumero);
         etCidade = findViewById(R.id.et_MedicoCidade);
         spUF = findViewById(R.id.sp_MedicoUF);
         etCelular = findViewById(R.id.et_MedicoCelular);
@@ -85,8 +83,7 @@ public class AdicionaMedico extends AppCompatActivity {
         this.finish();
     }
     public void btnVoltar(View v){
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+        this.finish();
     }
 
     //endregion

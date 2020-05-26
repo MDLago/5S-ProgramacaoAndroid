@@ -55,21 +55,47 @@ public class MainActivity extends AppCompatActivity {
 
     public void abrirListarMedico(View v){
 
-        if(db.buscarMedico() == null){
-            exibirMensagem("Não há médicos cadastrados", 0);
+        try{
+            if(db.buscarMedico() == null) {
+                exibirMensagem("Não há médicos cadastrados", 0);
+                return;
+            }
+
+            Intent i = new Intent(getApplicationContext(), ListarMedico.class);
+            startActivity(i);
+        }catch (SQLException e){
+            exibirMensagem(e.getMessage(),1);
             return;
         }
-        Intent i = new Intent(getApplicationContext(), ListarMedico.class);
-        startActivity(i);
     }
 
     public void abrirListarPaciente(View v){
-        Intent i = new Intent(getApplicationContext(), ListarPaciente.class);
-        startActivity(i);
+
+        try{
+            if(db.buscarPaciente() == null){
+                exibirMensagem("Não há pacientes cadastrados", 0);
+                return;
+            }
+            Intent i = new Intent(getApplicationContext(), ListarPaciente.class);
+            startActivity(i);
+        }catch (SQLException e){
+            exibirMensagem(e.getMessage(),1);
+            return;
+        }
+
     }
 
     public void abrirListarConsulta(View v){
-        Intent i = new Intent(getApplicationContext(),ListarConsulta.class);
-        startActivity(i);
+        try{
+            if(db.buscarPaciente() == null){
+                exibirMensagem("Não há pacientes cadastrados", 0);
+                return;
+            }
+            Intent i = new Intent(getApplicationContext(), ListarConsulta.class);
+            startActivity(i);
+        }catch (SQLException e){
+            exibirMensagem(e.getMessage(),1);
+            return;
+        }
     }
 }
