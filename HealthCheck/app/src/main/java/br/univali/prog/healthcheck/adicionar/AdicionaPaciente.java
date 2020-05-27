@@ -18,7 +18,7 @@ public class AdicionaPaciente extends AppCompatActivity {
     private DB db;
 
     private EditText etNome;
-    private Spinner spTS;
+    private Spinner spGRPS;
     private EditText etRua;
     private EditText etNumero;
     private EditText etCidade;
@@ -32,7 +32,7 @@ public class AdicionaPaciente extends AppCompatActivity {
         setContentView(R.layout.activity_adiciona_paciente);
 
         etNome = findViewById(R.id.et_PacienteNome);
-        spTS = findViewById(R.id.sp_PacienteTipoSangue);
+        spGRPS = findViewById(R.id.sp_PacienteTipoSangue);
         etRua = findViewById(R.id.et_PacienteRua);
         etNumero = findViewById(R.id.et_PacienteNumero);
         etCidade = findViewById(R.id.et_PacienteCidade);
@@ -42,7 +42,7 @@ public class AdicionaPaciente extends AppCompatActivity {
 
         db = new DB(getApplicationContext());
         spinnerUF();
-        spinnerTS();
+        spinnerGRPS();
 
     }
 
@@ -57,9 +57,9 @@ public class AdicionaPaciente extends AppCompatActivity {
         spUF.setAdapter(arrayAdapter);
     }
 
-    private void spinnerTS() {
+    private void spinnerGRPS() {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.TipoSangue));
-        spTS.setAdapter(arrayAdapter);
+        spGRPS.setAdapter(arrayAdapter);
     }
 
     //endregion
@@ -72,7 +72,7 @@ public class AdicionaPaciente extends AppCompatActivity {
         }
 
         String nome = etNome.getText().toString().trim();
-        int grp_Sanguineo = Integer.parseInt(spTS.getSelectedItem().toString());
+        String grp_Sanguineo = spGRPS.getSelectedItem().toString();
         String rua= etRua.getText().toString().trim();
         int numero= Integer.parseInt(etNumero.getText().toString());
         String cidade= etCidade.getText().toString().trim();

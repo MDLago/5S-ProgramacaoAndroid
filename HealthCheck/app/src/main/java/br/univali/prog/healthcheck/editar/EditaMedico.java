@@ -41,7 +41,6 @@ public class EditaMedico extends AppCompatActivity {
         getMedicoFromIntent();
         setFields();
         setFieldSValues();
-
     }
 
     //region Outros

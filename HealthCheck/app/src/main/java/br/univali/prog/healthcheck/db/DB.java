@@ -64,6 +64,50 @@ public class DB extends SQLiteOpenHelper{
     public void deletarDB() throws SQLException{
         context.deleteDatabase(nomeDB);
     }
+    private int grpSangueToInt(String grp_sanguineo){
+        switch (grp_sanguineo){
+            case "A-":
+                return 1;
+            case "A+":
+                return 2;
+            case "B-":
+                return 3;
+            case "B+":
+                return 4;
+            case "AB-":
+                return 5;
+            case "AB+":
+                return 6;
+            case "O-":
+                return 7;
+            case "O+":
+                return 8;
+            default:
+                throw new SQLException("Grupo Sanguineo Invalido");
+        }
+    }
+    private String grpSangueToString(int grp_sanguineo){
+        switch (grp_sanguineo){
+            case 1:
+                return "A-";
+            case 2:
+                return "A+";
+            case 3:
+                return "B-";
+            case 4:
+                return "B+";
+            case 5:
+                return "AB-";
+            case 6:
+                return "AB+";
+            case 7:
+                return "O-";
+            case 8:
+                return "O+";
+            default:
+                throw new SQLException("Grupo Sanguineo Invalido");
+        }
+    }
     //endregion
 
     //region CODIGOS SQLs
@@ -266,7 +310,7 @@ public class DB extends SQLiteOpenHelper{
         fecharDB();
     }
 
-    public void inserirPaciente(@Nullable String nome, int grp_Sanguineo, @Nullable String rua,int numero,
+    public void inserirPaciente(@Nullable String nome, String grp_Sanguineo, @Nullable String rua,int numero,
                               @Nullable String cidade,@Nullable String uf,@Nullable String celular,
                               @Nullable String fixo) throws SQLException{
 
@@ -275,7 +319,7 @@ public class DB extends SQLiteOpenHelper{
         SQLiteStatement sqtmt = db.compileStatement(SQL_InsertPaciente());
 
         sqtmt.bindString(1,nome);
-        sqtmt.bindLong(2,grp_Sanguineo);
+        sqtmt.bindLong(2, grpSangueToInt(grp_Sanguineo));
         sqtmt.bindString(3,rua);
         sqtmt.bindLong(4,numero);
         sqtmt.bindString(5,cidade);
@@ -313,7 +357,7 @@ public class DB extends SQLiteOpenHelper{
         fecharDB();
     }
 
-    public void atualizarPaciente(@Nullable String nome, int grp_Sanguineo, @Nullable String rua, @Nullable int numero,
+    public void atualizarPaciente(@Nullable String nome, @Nullable String grp_Sanguineo, @Nullable String rua, @Nullable int numero,
                                 @Nullable String cidade, @Nullable String uf, @Nullable String celular,
                                 @Nullable String fixo, int id) throws SQLException {
 
@@ -322,7 +366,7 @@ public class DB extends SQLiteOpenHelper{
         SQLiteStatement sqtmt = db.compileStatement(SQL_UpdatePaciente());
 
         sqtmt.bindString(1, nome);
-        sqtmt.bindLong(2, grp_Sanguineo);
+        sqtmt.bindLong(2, grpSangueToInt(grp_Sanguineo));
         sqtmt.bindString(3, rua);
         sqtmt.bindLong(4, numero);
         sqtmt.bindString(5, cidade);
@@ -422,7 +466,7 @@ public class DB extends SQLiteOpenHelper{
 
         int id = cursor.getInt(0);
         String nome = cursor.getString(1);
-        int grp_Sanguineo = cursor.getInt(2);
+        String grp_Sanguineo = grpSangueToString(cursor.getInt(2));
         String rua = cursor.getString(3);
         int numero = cursor.getInt(4);
         String cidade = cursor.getString(5);
@@ -451,7 +495,7 @@ public class DB extends SQLiteOpenHelper{
         do{
             int id = cursor.getInt(0);
             String nome = cursor.getString(1);
-            int grp_Sanguineo = cursor.getInt(2);
+            String grp_Sanguineo = grpSangueToString(cursor.getInt(2));
             String rua = cursor.getString(3);
             int numero = cursor.getInt(4);
             String cidade = cursor.getString(5);

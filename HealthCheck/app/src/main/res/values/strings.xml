@@ -23,6 +23,7 @@
     <string name="excluir">Excluir</string>
     <string name="tipo_sanguineo">Tipo Sanguineo</string>
     <string name="listar_pacientes">Listar Pacientes</string>
+    <string name="editar_paciente">Editar Paciente</string>
     <string-array name="UF">
         <item>AC</item>
         <item>AL</item>
@@ -53,9 +54,13 @@
         <item>TO</item>
     </string-array>
     <string-array name="TipoSangue">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>A-</item>
+        <item>A+</item>
+        <item>B-</item>
+        <item>B+</item>
+        <item>AB-</item>
+        <item>AB+</item>
+        <item>O-</item>
+        <item>O+</item>
     </string-array>
 </resources>
