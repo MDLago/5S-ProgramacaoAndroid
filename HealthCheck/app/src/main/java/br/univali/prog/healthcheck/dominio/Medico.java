@@ -23,4 +23,9 @@ public class Medico {
         this.celular = celular;
         this.fixo = fixo;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

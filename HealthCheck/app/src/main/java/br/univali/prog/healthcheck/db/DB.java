@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteStatement;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.univali.prog.healthcheck.dominio.Medico;
@@ -108,6 +109,16 @@ public class DB extends SQLiteOpenHelper{
                 throw new SQLException("Grupo Sanguineo Invalido");
         }
     }
+    private Cursor getCursor (String sql) throws  SQLException{
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+    public Date getDateFromLong(long dateLong){
+        return new Date(dateLong);
+    }
+    public long getLongFromDate(Date date){
+        return date.getTime();
+    }
     //endregion
 
     //region CODIGOS SQLs
@@ -152,7 +163,7 @@ public class DB extends SQLiteOpenHelper{
     private String SQL_TabelaConsulta() {
         StringBuilder sql = new StringBuilder();
 
-        sql.append("CREATE TABLE IF NOT EXISTS paciente (");
+        sql.append("CREATE TABLE IF NOT EXISTS consulta (");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         sql.append("paciente_id INTEGER NOT NULL, ");
         sql.append("medico_id INTEGER NOT NULL, ");
@@ -184,6 +195,15 @@ public class DB extends SQLiteOpenHelper{
 
         sql.append("INSERT INTO paciente (nome,grp_sanguineo,logradouro,numero,cidade,uf,celular,fixo) ");
         sql.append("VALUES (?,?,?,?,?,?,?,?)");
+
+        return sql.toString();
+    }
+
+    private String SQL_InsertConsulta(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("INSERT INTO consulta (paciente_id,medico_id,data_hora_inicio,data_hora_fim,observacao) ");
+        sql.append("VALUES (?,?,?,?,?)");
 
         return sql.toString();
     }
@@ -227,6 +247,21 @@ public class DB extends SQLiteOpenHelper{
         return sql.toString();
     }
 
+    private String SQL_UpdateConsulta(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("UPDATE consulta SET ");
+        sql.append("paciente_id = ?,");
+        sql.append("medico_id = ?,");
+        sql.append("data_hora_inicio = ?,");
+        sql.append("data_hora_fim = ?,");
+        sql.append("observacao = ?");
+
+        sql.append("WHERE _id = ?");
+
+        return sql.toString();
+    }
+
             //endregion
 
             //region SELECTS
@@ -235,6 +270,31 @@ public class DB extends SQLiteOpenHelper{
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT * FROM medico");
+
+        return sql.toString();
+    }
+
+    private String SQL_SelectPaciente(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM paciente");
+
+        return sql.toString();
+    }
+
+    private String SQL_SelectConsulta(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM consulta");
+
+        return sql.toString();
+    }
+
+    private String SQL_SelectMedicoFromID(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM medico ");
+        sql.append("WHERE _id = ?");
 
         return sql.toString();
     }
@@ -248,18 +308,10 @@ public class DB extends SQLiteOpenHelper{
         return sql.toString();
     }
 
-    private String SQL_SelectPaciente(){
+    private String SQL_SelectConsultaFromID(){
         StringBuilder sql = new StringBuilder();
 
-        sql.append("SELECT * FROM paciente");
-
-        return sql.toString();
-    }
-
-    private String SQL_SelectMedicoFromID(){
-        StringBuilder sql = new StringBuilder();
-
-        sql.append("SELECT * FROM medico ");
+        sql.append("SELECT * FROM consulta ");
         sql.append("WHERE _id = ?");
 
         return sql.toString();
@@ -281,6 +333,15 @@ public class DB extends SQLiteOpenHelper{
         StringBuilder sql = new StringBuilder();
 
         sql.append("DELETE FROM paciente ");
+        sql.append("WHERE _id = ?");
+
+        return sql.toString();
+    }
+
+    private String SQL_DeleteConsultaFromID(){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("DELETE FROM consulta ");
         sql.append("WHERE _id = ?");
 
         return sql.toString();
@@ -326,6 +387,23 @@ public class DB extends SQLiteOpenHelper{
         sqtmt.bindString(6,uf);
         sqtmt.bindString(7,celular);
         sqtmt.bindString(8,fixo);
+
+        sqtmt.executeInsert();
+        fecharDB();
+    }
+
+    public void inserirConsulta(int idMedico, int idPaciente, @Nullable Date dataHoraInicio,@Nullable Date dateHoraFim,
+                                @Nullable String observacoes) throws SQLException{
+
+        abrirDB();
+
+        SQLiteStatement sqtmt = db.compileStatement(SQL_InsertConsulta());
+
+        sqtmt.bindLong(1,idMedico);
+        sqtmt.bindLong(2, idPaciente);
+        sqtmt.bindLong(3, getLongFromDate(dataHoraInicio));
+        sqtmt.bindLong(4,getLongFromDate(dateHoraFim));
+        sqtmt.bindString(5,observacoes);
 
         sqtmt.executeInsert();
         fecharDB();
@@ -382,10 +460,6 @@ public class DB extends SQLiteOpenHelper{
     //endregion
 
     //region Funções Selects
-    private Cursor getCursor (String sql) throws  SQLException{
-        Cursor cursor = db.rawQuery(sql,null);
-        return cursor;
-    }
 
     public Medico buscaMedicoFromID(int idRv) throws SQLException{
         Medico medico;

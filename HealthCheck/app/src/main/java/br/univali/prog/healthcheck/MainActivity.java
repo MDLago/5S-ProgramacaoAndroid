@@ -49,8 +49,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirAdicionarConsulta(View v){
-        Intent i = new Intent(getApplicationContext(), AdicionaConsulta.class);
-        startActivity(i);
+
+        try{
+            if(db.buscarMedico() == null) {
+                exibirMensagem("Não há médicos cadastrados", 0);
+                return;
+            }else if(db.buscarPaciente() == null){
+                exibirMensagem("Não há pacientes cadastrados", 0);
+                return;
+            }
+            Intent i = new Intent(getApplicationContext(), AdicionaConsulta.class);
+            startActivity(i);
+        }catch (SQLException e){
+            exibirMensagem(e.getMessage(),1);
+        }
+
     }
 
     public void abrirListarMedico(View v){
@@ -65,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
-            return;
         }
     }
 
@@ -80,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
-            return;
         }
 
     }
@@ -95,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
-            return;
         }
     }
 }
