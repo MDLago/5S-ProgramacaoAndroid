@@ -154,7 +154,7 @@
             android:id="@+id/tv_HoraFim"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/hora_inicio"
+            android:text="@string/hora_fim"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="18sp" />
 

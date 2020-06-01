@@ -10,10 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -85,6 +82,16 @@ public class AdicionaConsulta extends AppCompatActivity {
         horaInicio.addTextChangedListener(MaskEditText.mask(horaInicio,MaskEditText.FORMAT_HOUR));
         horaFim.addTextChangedListener(MaskEditText.mask(horaFim,MaskEditText.FORMAT_HOUR));
     }
+    private Calendar criarCalendar(String[] data, String[] tempo){
+
+        int dia = Integer.parseInt(data[0]);
+        int mes = Integer.parseInt(data[1]);
+        int ano = Integer.parseInt(data[2]);
+        int hora = Integer.parseInt(tempo[0]);
+        int minuto = Integer.parseInt(tempo[1]);
+
+        return new GregorianCalendar(ano, mes, dia, hora, minuto);
+    }
     //endregion
 
     //region Botões
@@ -98,16 +105,30 @@ public class AdicionaConsulta extends AppCompatActivity {
             Medico medico = (Medico)spMedico.getSelectedItem();
             Paciente paciente = (Paciente)spPaciente.getSelectedItem();
 
+            String[] tDataI = dataInicio.getText().toString().trim().split("-");
+            String[] tHoraI = horaInicio.getText().toString().trim().split(":");
+            String[] tDataF = dataFim.getText().toString().trim().split("-");
+            String[] tHoraF = horaFim.getText().toString().trim().split(":");
+
             int idMedico = medico.id;
             int idPaciente = paciente.id;
-            Date dataHoraInicio = getDateFromString(dataInicio+" "+horaInicio);
-            Date dataHoraFim = getDateFromString(dataFim+" "+horaFim);
+            Calendar dataHoraInicio = criarCalendar(tDataI,tHoraI);
+            Calendar dataHoraFim = criarCalendar(tDataF, tHoraF);
+
+            if(dataHoraIncoerente(dataHoraInicio,dataHoraFim)){
+                exibirMensagem("Data ou Hora fim é menor que o inicio", 0);
+                return;
+            }
+
             String observacoes = this.observacoes.getText().toString().trim();
 
-            db.inserirConsulta(idMedico,idPaciente,dataHoraInicio,dataHoraFim,observacoes);
-        }catch (ParseException e){
+            db.inserirConsulta(idMedico,idPaciente,dataHoraInicio.getTimeInMillis(),dataHoraFim.getTimeInMillis(),observacoes);
+        }catch (SQLException e){
             exibirMensagem(e.getMessage(),1);
         }
+
+        exibirMensagem("Adicionado com sucesso",0);
+        this.finish();
 
     }
     public void btnVoltar(View v){
@@ -123,6 +144,10 @@ public class AdicionaConsulta extends AppCompatActivity {
                 horaInicio.getText().toString().trim().isEmpty() ||
                 dataFim.getText().toString().trim().isEmpty() ||
                 horaFim.getText().toString().trim().isEmpty();
+    }
+
+    private boolean dataHoraIncoerente(Calendar inicio, Calendar fim){
+        return inicio.getTimeInMillis() >= fim.getTimeInMillis();
     }
 
     //endregion

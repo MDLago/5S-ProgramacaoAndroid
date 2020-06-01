@@ -1,9 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#55E3E6A0"
     tools:context=".editar.EditaConsulta">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_NomeTela"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/editar_consulta"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_Medico"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="@string/medico"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/sp_Medico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_Paciente"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="@string/paciente"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/sp_Paciente"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_DataInicio"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/data_inicio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_DataInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/dd_mm_aaaa"
+            android:inputType="date" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_HoraInicio"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hora_inicio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_HoraInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hh_mm"
+            android:ems="10"
+            android:inputType="time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_DataFim"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="@string/data_fim"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_DataFim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_mm_aaaa"
+            android:ems="10"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_HoraFim"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hora_fim"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_HoraFim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hh_mm"
+            android:ems="10"
+            android:inputType="time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_Observacoes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/observacoes"
+            android:gravity="start"
+            android:maxLength="200"
+            android:inputType="textMultiLine"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_salvar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnAtualizarConsulta"
+            android:text="@string/atualizar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <Button
+            android:id="@+id/btn_voltar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnExcluir"
+            android:text="@string/excluir"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    </LinearLayout>
+
+</LinearLayout>

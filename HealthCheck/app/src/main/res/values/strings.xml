@@ -33,6 +33,9 @@
     <string name="dd_mm_aaaa">DD-MM-AAAA</string>
     <string name="hora_inicio">Hora inicio</string>
     <string name="hh_mm">HH:MM</string>
+    <string name="hora_fim">Hora Fim</string>
+    <string name="listar_consultas">Listar Consultas</string>
+    <string name="editar_consulta">Editar Consulta</string>
     <string-array name="UF">
         <item>AC</item>
         <item>AL</item>

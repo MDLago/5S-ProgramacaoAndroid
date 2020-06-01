@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.univali.prog.healthcheck.dominio.Consulta;
 import br.univali.prog.healthcheck.dominio.Medico;
 import br.univali.prog.healthcheck.dominio.Paciente;
 
@@ -112,12 +113,6 @@ public class DB extends SQLiteOpenHelper{
     private Cursor getCursor (String sql) throws  SQLException{
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
-    }
-    public Date getDateFromLong(long dateLong){
-        return new Date(dateLong);
-    }
-    public long getLongFromDate(Date date){
-        return date.getTime();
     }
     //endregion
 
@@ -392,17 +387,17 @@ public class DB extends SQLiteOpenHelper{
         fecharDB();
     }
 
-    public void inserirConsulta(int idMedico, int idPaciente, @Nullable Date dataHoraInicio,@Nullable Date dateHoraFim,
+    public void inserirConsulta(int idPaciente, int idMedico, @Nullable long dataHoraInicio,@Nullable long dateHoraFim,
                                 @Nullable String observacoes) throws SQLException{
 
         abrirDB();
 
         SQLiteStatement sqtmt = db.compileStatement(SQL_InsertConsulta());
 
-        sqtmt.bindLong(1,idMedico);
-        sqtmt.bindLong(2, idPaciente);
-        sqtmt.bindLong(3, getLongFromDate(dataHoraInicio));
-        sqtmt.bindLong(4,getLongFromDate(dateHoraFim));
+        sqtmt.bindLong(1,idPaciente);
+        sqtmt.bindLong(2, idMedico);
+        sqtmt.bindLong(3, dataHoraInicio);
+        sqtmt.bindLong(4,dateHoraFim);
         sqtmt.bindString(5,observacoes);
 
         sqtmt.executeInsert();
@@ -453,6 +448,25 @@ public class DB extends SQLiteOpenHelper{
         sqtmt.bindString(8, fixo);
 
         sqtmt.bindLong(9, id);
+
+        sqtmt.executeUpdateDelete();
+        fecharDB();
+    }
+
+    public void atualizarConsulta(int idPaciente, int idMedico, @Nullable long dataHoraInicio,@Nullable long dateHoraFim,
+                                @Nullable String observacoes, int id) throws SQLException{
+
+        abrirDB();
+
+        SQLiteStatement sqtmt = db.compileStatement(SQL_UpdateConsulta());
+
+        sqtmt.bindLong(1,idPaciente);
+        sqtmt.bindLong(2, idMedico);
+        sqtmt.bindLong(3, dataHoraInicio);
+        sqtmt.bindLong(4,dateHoraFim);
+        sqtmt.bindString(5,observacoes);
+
+        sqtmt.bindLong(6,id);
 
         sqtmt.executeUpdateDelete();
         fecharDB();
@@ -586,6 +600,64 @@ public class DB extends SQLiteOpenHelper{
         return arrayList;
     }
 
+    public Consulta buscaConsultaFromID(int idRv) throws SQLException{
+        Consulta consulta;
+
+        abrirDB();
+
+        String sql = SQL_SelectConsultaFromID();
+        sql = sql.replace("?",String.valueOf(idRv));
+        Cursor cursor = getCursor(sql);
+
+        if(cursor == null || cursor.getCount() == 0){
+            return null;
+        }
+
+        cursor.moveToFirst();
+
+        int id = cursor.getInt(0);
+        int idPaciente = cursor.getInt(1);
+        int idMedico = cursor.getInt(2);
+        long dataHoraInicio = cursor.getLong(3);
+        long dataHoraFim = cursor.getLong(4);
+        String observacoes = cursor.getString(5);
+
+        db.close();
+
+        consulta = new Consulta(id,idPaciente,idMedico,dataHoraInicio,dataHoraFim,observacoes);
+        return consulta;
+    }
+
+    public List<Consulta> buscarConsulta() throws SQLException{
+        ArrayList<Consulta> arrayList = new ArrayList<>();
+
+        abrirDB();
+        Cursor cursor = getCursor(SQL_SelectConsulta());
+
+        if(cursor == null || cursor.getCount() == 0){
+            return null;
+        }
+
+        cursor.moveToFirst();
+
+        do{
+            int id = cursor.getInt(0);
+            int idPaciente = cursor.getInt(1);
+            int idMedico = cursor.getInt(2);
+            long dataHoraInicio = cursor.getLong(3);
+            long dataHoraFim = cursor.getLong(4);
+            String observacoes = cursor.getString(5);
+
+
+            Consulta consulta = new Consulta(id,idPaciente,idMedico,dataHoraInicio,dataHoraFim,observacoes);
+            arrayList.add(consulta);
+
+        }while(cursor.moveToNext());
+        fecharDB();
+
+        return arrayList;
+    }
+
     //endregion
 
     //region Funções Deletes
@@ -604,6 +676,17 @@ public class DB extends SQLiteOpenHelper{
         abrirDB();
 
         SQLiteStatement sqtmt = db.compileStatement(SQL_DeletePacienteFromID());
+
+        sqtmt.bindLong(1,id);
+
+        sqtmt.executeUpdateDelete();
+        fecharDB();
+    }
+
+    public void excluirConsulta(int id) throws SQLException{
+        abrirDB();
+
+        SQLiteStatement sqtmt = db.compileStatement(SQL_DeleteConsultaFromID());
 
         sqtmt.bindLong(1,id);
 
