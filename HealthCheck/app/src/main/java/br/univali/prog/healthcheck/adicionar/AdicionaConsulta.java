@@ -120,6 +120,21 @@ public class AdicionaConsulta extends AppCompatActivity {
                 return;
             }
 
+            if(foraDeDia(dataHoraInicio)){
+                exibirMensagem("Não há expediente nessa data de inicio",0);
+                return;
+            }
+
+            if(foraDeDia(dataHoraFim)){
+                exibirMensagem("Não há expediente nessa data fim",0);
+                return;
+            }
+
+            if(foraDeHorario(dataHoraInicio) || foraDeHorario(dataHoraFim)){
+                exibirMensagem("Fora do horário do expediente 8:00 12:00 e 13:30 as 17:30",0);
+                return;
+            }
+
             String observacoes = this.observacoes.getText().toString().trim();
 
             db.inserirConsulta(idMedico,idPaciente,dataHoraInicio.getTimeInMillis(),dataHoraFim.getTimeInMillis(),observacoes);
@@ -148,6 +163,17 @@ public class AdicionaConsulta extends AppCompatActivity {
 
     private boolean dataHoraIncoerente(Calendar inicio, Calendar fim){
         return inicio.getTimeInMillis() >= fim.getTimeInMillis();
+    }
+
+    private boolean foraDeHorario(Calendar cal){
+        return cal.get(Calendar.HOUR_OF_DAY) < 8 ||
+                ((cal.get(Calendar.HOUR_OF_DAY) == 12 && cal.get(Calendar.MINUTE) > 0) && (cal.get(Calendar.HOUR_OF_DAY) == 13 && cal.get(Calendar.MINUTE) < 30)) ||
+                (cal.get(Calendar.HOUR_OF_DAY) > 17 && cal.get(Calendar.MINUTE) > 30);
+    }
+
+    private boolean foraDeDia(Calendar cal){
+        return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
 
     //endregion
