@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public void abrirListarConsulta(View v){
         try{
             if(db.buscarConsulta() == null){
-                exibirMensagem("Não há consultas cadastrados", 0);
+                exibirMensagem("Não há consultas cadastradas", 0);
                 return;
             }
             Intent i = new Intent(getApplicationContext(), ListarConsulta.class);
